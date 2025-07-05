@@ -25,6 +25,6 @@ This is a well functioning **ft_printf**, albeit slightly over-complicated. This
 
 ### Testing:
 
-- My own test file available in this repository.
+- My own test file.
 
 - printfTester, fsoares. See [Francinette](https://github.com/WaRtr0/francinette-image).
