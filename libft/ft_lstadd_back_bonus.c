@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base_prnt_address.c                      :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 18:57:06 by pecastro          #+#    #+#             */
-/*   Updated: 2025/06/05 11:57:26 by pecastro         ###   ########.fr       */
+/*   Created: 2025/05/20 16:43:57 by pecastro          #+#    #+#             */
+/*   Updated: 2025/05/26 13:10:10 by pecastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putnbr_base_prnt_address(uintptr_t nb, int *count_chars, char *base)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	if ((size_t)nb >= ft_strlen(base))
+	t_list	*current;
+
+	if (new == NULL)
 	{
-		ft_putnbr_base_prnt_address(nb / ft_strlen(base), count_chars, base);
-		ft_putnbr_base_prnt_address(nb % ft_strlen(base), count_chars, base);
+		return ;
 	}
-	if ((size_t)nb < ft_strlen(base))
+	if (*lst == NULL)
 	{
-		if (ft_putchar_prnt((int)base[nb], count_chars) == -1)
-			return (-1);
+		*lst = new;
+		return ;
 	}
-	return (0);
+	current = *lst;
+	while (current->next != NULL)
+	{
+		current = current->next;
+	}
+	current->next = new;
 }

@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_prnt.c                                  :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 18:57:29 by pecastro          #+#    #+#             */
-/*   Updated: 2025/06/04 19:24:35 by pecastro         ###   ########.fr       */
+/*   Created: 2025/05/20 12:53:54 by pecastro          #+#    #+#             */
+/*   Updated: 2025/05/20 15:00:45 by pecastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putchar_prnt(int c, int *count_chars)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	if (write(1, &c, 1) == -1)
-		return (-1);
-	(*count_chars)++;
-	return (0);
+	new->next = *lst;
+	*lst = new;
 }

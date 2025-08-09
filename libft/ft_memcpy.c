@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base_prnt_address.c                      :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 18:57:06 by pecastro          #+#    #+#             */
-/*   Updated: 2025/06/05 11:57:26 by pecastro         ###   ########.fr       */
+/*   Created: 2025/05/13 15:53:21 by pecastro          #+#    #+#             */
+/*   Updated: 2025/05/22 09:49:25 by pecastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putnbr_base_prnt_address(uintptr_t nb, int *count_chars, char *base)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	if ((size_t)nb >= ft_strlen(base))
+	size_t	i;
+
+	i = 0;
+	if (dest == src || n == 0)
 	{
-		ft_putnbr_base_prnt_address(nb / ft_strlen(base), count_chars, base);
-		ft_putnbr_base_prnt_address(nb % ft_strlen(base), count_chars, base);
+		return (dest);
 	}
-	if ((size_t)nb < ft_strlen(base))
+	while (i < n)
 	{
-		if (ft_putchar_prnt((int)base[nb], count_chars) == -1)
-			return (-1);
+		((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
+		i ++;
 	}
-	return (0);
+	return (dest);
 }

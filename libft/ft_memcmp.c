@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base_prnt_address.c                      :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 18:57:06 by pecastro          #+#    #+#             */
-/*   Updated: 2025/06/05 11:57:26 by pecastro         ###   ########.fr       */
+/*   Created: 2025/05/14 12:12:47 by pecastro          #+#    #+#             */
+/*   Updated: 2025/05/14 12:35:43 by pecastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putnbr_base_prnt_address(uintptr_t nb, int *count_chars, char *base)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	if ((size_t)nb >= ft_strlen(base))
+	size_t			i;
+	unsigned char	*x;
+	unsigned char	*y;	
+
+	x = (unsigned char *)s1;
+	y = (unsigned char *)s2;
+	i = 0;
+	while (i < n)
 	{
-		ft_putnbr_base_prnt_address(nb / ft_strlen(base), count_chars, base);
-		ft_putnbr_base_prnt_address(nb % ft_strlen(base), count_chars, base);
-	}
-	if ((size_t)nb < ft_strlen(base))
-	{
-		if (ft_putchar_prnt((int)base[nb], count_chars) == -1)
-			return (-1);
+		if (x[i] != y[i])
+		{
+			return (x[i] - y[i]);
+		}
+		i ++;
 	}
 	return (0);
 }

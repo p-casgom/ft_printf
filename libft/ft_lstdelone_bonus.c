@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base_prnt_address.c                      :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 18:57:06 by pecastro          #+#    #+#             */
-/*   Updated: 2025/06/05 11:57:26 by pecastro         ###   ########.fr       */
+/*   Created: 2025/05/20 17:54:07 by pecastro          #+#    #+#             */
+/*   Updated: 2025/05/21 10:44:50 by pecastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putnbr_base_prnt_address(uintptr_t nb, int *count_chars, char *base)
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	if ((size_t)nb >= ft_strlen(base))
+	if (lst != NULL)
 	{
-		ft_putnbr_base_prnt_address(nb / ft_strlen(base), count_chars, base);
-		ft_putnbr_base_prnt_address(nb % ft_strlen(base), count_chars, base);
+		del(lst->content);
+		free (lst);
 	}
-	if ((size_t)nb < ft_strlen(base))
-	{
-		if (ft_putchar_prnt((int)base[nb], count_chars) == -1)
-			return (-1);
-	}
-	return (0);
 }

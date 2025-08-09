@@ -1,37 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_prnt.c                                   :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 18:55:49 by pecastro          #+#    #+#             */
-/*   Updated: 2025/06/05 11:38:18 by pecastro         ###   ########.fr       */
+/*   Created: 2025/05/15 11:23:41 by pecastro          #+#    #+#             */
+/*   Updated: 2025/05/23 13:40:28 by pecastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstr_prnt(void *str, int *count_chars)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	unsigned char	*s;
-	int				i;
+	size_t	i;
+	size_t	j;
 
-	if (count_chars == NULL)
-		return (-1);
-	if (str == NULL)
-	{
-		if (write(1, "(null)", 6) == -1)
-			return (-1);
-		(*count_chars) += 6;
-		return (0);
-	}
-	s = (unsigned char *)str;
 	i = 0;
-	while (s[i])
+	if (little[i] == '\0')
 	{
-		if (ft_putchar_prnt((int)s[i], count_chars) == -1)
-			return (-1);
+		return ((char *)big);
+	}
+	while (big[i] && (i < len))
+	{
+		if (big[i] == little[0])
+		{
+			j = 0;
+			while (little[j] && ((big[i + j] == little[j])) && (i + j < len))
+			{
+				j ++;
+			}
+			if (j == ft_strlen(little))
+			{
+				return ((char *)(big + i));
+			}
+		}
 		i ++;
 	}
-	return (0);
+	return (NULL);
 }

@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base_prnt_address.c                      :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 18:57:06 by pecastro          #+#    #+#             */
-/*   Updated: 2025/06/05 11:57:26 by pecastro         ###   ########.fr       */
+/*   Created: 2025/05/13 11:28:42 by pecastro          #+#    #+#             */
+/*   Updated: 2025/05/13 11:50:30 by pecastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putnbr_base_prnt_address(uintptr_t nb, int *count_chars, char *base)
+int	ft_isascii(int c)
 {
-	if ((size_t)nb >= ft_strlen(base))
+	if (c >= 0 && c <= 127)
 	{
-		ft_putnbr_base_prnt_address(nb / ft_strlen(base), count_chars, base);
-		ft_putnbr_base_prnt_address(nb % ft_strlen(base), count_chars, base);
-	}
-	if ((size_t)nb < ft_strlen(base))
-	{
-		if (ft_putchar_prnt((int)base[nb], count_chars) == -1)
-			return (-1);
+		return (1);
 	}
 	return (0);
 }

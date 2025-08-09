@@ -1,37 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_prnt.c                                   :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 18:55:49 by pecastro          #+#    #+#             */
-/*   Updated: 2025/06/05 11:38:18 by pecastro         ###   ########.fr       */
+/*   Created: 2025/05/15 12:32:34 by pecastro          #+#    #+#             */
+/*   Updated: 2025/05/22 10:45:57 by pecastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstr_prnt(void *str, int *count_chars)
+int	ft_atoi(const char *nptr)
 {
-	unsigned char	*s;
-	int				i;
+	unsigned int	i;
+	int				sign;
+	int				result;
 
-	if (count_chars == NULL)
-		return (-1);
-	if (str == NULL)
-	{
-		if (write(1, "(null)", 6) == -1)
-			return (-1);
-		(*count_chars) += 6;
-		return (0);
-	}
-	s = (unsigned char *)str;
+	sign = 1;
 	i = 0;
-	while (s[i])
+	while (((nptr[i] >= '\t') && (nptr[i] <= '\r')) || (nptr[i] == ' '))
 	{
-		if (ft_putchar_prnt((int)s[i], count_chars) == -1)
-			return (-1);
+		i++;
+	}
+	if (nptr[i] == '+' || nptr[i] == '-')
+	{
+		if (nptr[i] == '-')
+		{
+			sign = -sign;
+		}
 		i ++;
 	}
-	return (0);
+	result = 0;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		result = (result * 10) + (nptr[i] - '0');
+		i ++;
+	}
+	return (result * sign);
 }

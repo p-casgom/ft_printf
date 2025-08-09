@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base_prnt_address.c                      :+:      :+:    :+:   */
+/*   ft_putnbr_dprintf.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 18:57:06 by pecastro          #+#    #+#             */
-/*   Updated: 2025/06/05 11:57:26 by pecastro         ###   ########.fr       */
+/*   Created: 2025/08/09 13:31:41 by pecastro          #+#    #+#             */
+/*   Updated: 2025/08/09 16:19:27 by pecastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "ft_dprintf.h"
 
-int	ft_putnbr_base_prnt_address(uintptr_t nb, int *count_chars, char *base)
+int	ft_putnbr_dprintf(int nb, int fd)
 {
-	if ((size_t)nb >= ft_strlen(base))
+	char	c;
+	int		count_chars;
+
+	count_chars = 0;
+	if (nb == -2147483648)
+		return (ft_putstr_dprintf("-2147483648", fd));
+	if (nb < 0)
 	{
-		ft_putnbr_base_prnt_address(nb / ft_strlen(base), count_chars, base);
-		ft_putnbr_base_prnt_address(nb % ft_strlen(base), count_chars, base);
+		count_chars += ft_putchar_dprintf('-', fd);
+		nb = -nb;
 	}
-	if ((size_t)nb < ft_strlen(base))
-	{
-		if (ft_putchar_prnt((int)base[nb], count_chars) == -1)
-			return (-1);
-	}
-	return (0);
+	if (nb >= 10)
+		count_chars += ft_putnbr_dprintf(nb / 10, fd);
+	c = (nb % 10) + '0';
+	count_chars += ft_putchar_dprintf(c, fd);
+	return (count_chars);
 }

@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base_prnt_address.c                      :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 18:57:06 by pecastro          #+#    #+#             */
-/*   Updated: 2025/06/05 11:57:26 by pecastro         ###   ########.fr       */
+/*   Created: 2025/05/18 12:36:33 by pecastro          #+#    #+#             */
+/*   Updated: 2025/05/18 13:53:12 by pecastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putnbr_base_prnt_address(uintptr_t nb, int *count_chars, char *base)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	if ((size_t)nb >= ft_strlen(base))
+	char	*ptr;
+	size_t	size;
+	size_t	i;
+
+	size = ft_strlen((const char *)s);
+	ptr = malloc(sizeof(char) * (size + 1));
+	if (ptr == NULL)
 	{
-		ft_putnbr_base_prnt_address(nb / ft_strlen(base), count_chars, base);
-		ft_putnbr_base_prnt_address(nb % ft_strlen(base), count_chars, base);
+		return (NULL);
 	}
-	if ((size_t)nb < ft_strlen(base))
+	i = 0;
+	while (i < size)
 	{
-		if (ft_putchar_prnt((int)base[nb], count_chars) == -1)
-			return (-1);
+		ptr[i] = f(i, s[i]);
+		i ++;
 	}
-	return (0);
+	ptr[i] = '\0';
+	return (ptr);
 }

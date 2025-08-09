@@ -1,27 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base_prnt_address.c                      :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 18:57:06 by pecastro          #+#    #+#             */
-/*   Updated: 2025/06/05 11:57:26 by pecastro         ###   ########.fr       */
+/*   Created: 2025/05/15 13:03:50 by pecastro          #+#    #+#             */
+/*   Updated: 2025/05/16 09:14:49 by pecastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putnbr_base_prnt_address(uintptr_t nb, int *count_chars, char *base)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	if ((size_t)nb >= ft_strlen(base))
+	void			*ptr;
+	unsigned int	i;
+
+	if (nmemb == 0 || size == 0)
 	{
-		ft_putnbr_base_prnt_address(nb / ft_strlen(base), count_chars, base);
-		ft_putnbr_base_prnt_address(nb % ft_strlen(base), count_chars, base);
+		return (malloc(0));
 	}
-	if ((size_t)nb < ft_strlen(base))
+	if ((nmemb * size) > 2147483647)
 	{
-		if (ft_putchar_prnt((int)base[nb], count_chars) == -1)
-			return (-1);
+		return (NULL);
 	}
-	return (0);
+	ptr = malloc(nmemb * size);
+	if (ptr == NULL)
+	{
+		return (NULL);
+	}
+	i = 0;
+	while (i < (nmemb * size))
+	{
+		((unsigned char *)ptr)[i] = 0;
+		i ++;
+	}
+	return (ptr);
 }

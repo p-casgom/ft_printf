@@ -1,20 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_prnt.c                                  :+:      :+:    :+:   */
+/*   ft_putchar_dprintf.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 18:57:29 by pecastro          #+#    #+#             */
-/*   Updated: 2025/06/04 19:24:35 by pecastro         ###   ########.fr       */
+/*   Created: 2025/08/09 13:26:11 by pecastro          #+#    #+#             */
+/*   Updated: 2025/08/09 16:18:17 by pecastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "ft_dprintf.h"
 
-int	ft_putchar_prnt(int c, int *count_chars)
+int	ft_putchar_dprintf(char c, int fd)
 {
-	if (write(1, &c, 1) == -1)
-		return (-1);
-	(*count_chars)++;
-	return (0);
+	return (write(fd, &c, 1));
 }

@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base_prnt_address.c                      :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 18:57:06 by pecastro          #+#    #+#             */
-/*   Updated: 2025/06/05 11:57:26 by pecastro         ###   ########.fr       */
+/*   Created: 2025/05/18 17:23:08 by pecastro          #+#    #+#             */
+/*   Updated: 2025/05/18 18:08:11 by pecastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putnbr_base_prnt_address(uintptr_t nb, int *count_chars, char *base)
+void	ft_putnbr_fd(int n, int fd)
 {
-	if ((size_t)nb >= ft_strlen(base))
+	char	c;
+
+	if (n == -2147483648)
 	{
-		ft_putnbr_base_prnt_address(nb / ft_strlen(base), count_chars, base);
-		ft_putnbr_base_prnt_address(nb % ft_strlen(base), count_chars, base);
+		write(fd, "-2147483648", 11);
+		return ;
 	}
-	if ((size_t)nb < ft_strlen(base))
+	if (n < 0)
 	{
-		if (ft_putchar_prnt((int)base[nb], count_chars) == -1)
-			return (-1);
+		write(fd, "-", 1);
+		n = -n;
 	}
-	return (0);
+	if (n > 9)
+	{
+		ft_putnbr_fd(n / 10, fd);
+	}
+	c = n % 10 + '0';
+	write(fd, &c, 1);
 }

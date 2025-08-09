@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base_prnt_address.c                      :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 18:57:06 by pecastro          #+#    #+#             */
-/*   Updated: 2025/06/05 11:57:26 by pecastro         ###   ########.fr       */
+/*   Created: 2025/05/15 10:47:28 by pecastro          #+#    #+#             */
+/*   Updated: 2025/05/23 13:39:29 by pecastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putnbr_base_prnt_address(uintptr_t nb, int *count_chars, char *base)
+char	*ft_strrchr(const char *s, int c)
 {
-	if ((size_t)nb >= ft_strlen(base))
+	int	i;
+
+	i = 0;
+	while (s[i])
 	{
-		ft_putnbr_base_prnt_address(nb / ft_strlen(base), count_chars, base);
-		ft_putnbr_base_prnt_address(nb % ft_strlen(base), count_chars, base);
+		i ++;
 	}
-	if ((size_t)nb < ft_strlen(base))
+	if (c == '\0')
 	{
-		if (ft_putchar_prnt((int)base[nb], count_chars) == -1)
-			return (-1);
+		return ((char *)s + i);
 	}
-	return (0);
+	while (i >= 0)
+	{
+		if (s[i] == (char)c)
+		{
+			return ((char *)s + i);
+		}
+		i --;
+	}
+	return (NULL);
 }
