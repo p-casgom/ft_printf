@@ -1,14 +1,24 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/06/05 13:36:08 by pecastro          #+#    #+#              #
+#    Updated: 2025/08/09 15:32:30 by pecastro         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I. -Ilibft
 NAME = libftprintf.a
 
 SRCS = ft_printf.c \
-		ft_putchar_prnt.c \
-		ft_putstr_prnt.c \
-		ft_putnbr_base_prnt.c \
-		ft_putnbr_base_prnt_address.c \
-		ft_putnbr_base_prnt_address_pre.c
+		ft_putchar_fd_printf.c \
+		ft_putstr_fd_printf.c \
+		ft_putnbr_fd_printf.c \
+		ft_putnbr_base_unsigned_fd.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -27,7 +37,7 @@ $(NAME) : $(OBJS) $(LIBFT_LIB)
 	cd $(TEMP_LIBFT_OBJS) && ar x ../$(LIBFT_LIB)
 	ar rcs $(NAME) $(OBJS) $(TEMP_LIBFT_OBJS)/*.o
 	rm -rf $(TEMP_LIBFT_OBJS)
-	
+
 %.o: %.c ft_printf.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
