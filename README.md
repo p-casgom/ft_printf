@@ -1,4 +1,4 @@
-# ft_print_f
+# ft_printf
 
 ### Description:
 
