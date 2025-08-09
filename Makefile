@@ -6,7 +6,7 @@
 #    By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/05 13:36:08 by pecastro          #+#    #+#              #
-#    Updated: 2025/08/09 15:32:30 by pecastro         ###   ########.fr        #
+#    Updated: 2025/06/05 13:36:14 by pecastro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 CC = gcc
@@ -15,10 +15,11 @@ INCLUDES = -I. -Ilibft
 NAME = libftprintf.a
 
 SRCS = ft_printf.c \
-		ft_putchar_fd_printf.c \
-		ft_putstr_fd_printf.c \
-		ft_putnbr_fd_printf.c \
-		ft_putnbr_base_unsigned_fd.c \
+		ft_putchar_prnt.c \
+		ft_putstr_prnt.c \
+		ft_putnbr_base_prnt.c \
+		ft_putnbr_base_prnt_address.c \
+		ft_putnbr_base_prnt_address_pre.c
 
 OBJS = $(SRCS:.c=.o)
 

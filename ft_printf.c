@@ -5,24 +5,65 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/08 16:34:13 by pecastro          #+#    #+#             */
-/*   Updated: 2025/08/09 15:37:39 by pecastro         ###   ########.fr       */
+/*   Created: 2025/06/04 18:59:40 by pecastro          #+#    #+#             */
+/*   Updated: 2025/06/05 09:52:40 by pecastro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
+#include <stdio.h>
 
-static int	ft_is_converter(char c);
-static int	ft_convert(char converter, va_list *ap, int fd);
+static int	ft_is_converter(char c)
+{
+	size_t	i;
+	char	*str;
 
-//fd should be 2, and passed from calling main function.
+	str = "cspdiuxX";
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+		{
+			return (1);
+		}
+		i ++;
+	}
+	return (0);
+}
+
+static void	ft_convert(char converter, va_list *ap, int *count_chars)
+{
+	int	flag;
+
+	if (converter == 'c')
+		flag = ft_putchar_prnt(va_arg(*ap, int), count_chars);
+	else if (converter == 's')
+		flag = ft_putstr_prnt(va_arg(*ap, char *), count_chars);
+	else if (converter == 'p')
+		flag = ft_putnbr_base_prnt_address_pre((uintptr_t)va_arg(*ap, void *), 
+				count_chars, 1, 1);
+	else if (converter == 'd' || converter == 'i')
+		flag = ft_putnbr_base_prnt(va_arg(*ap, int), count_chars, "0123456789");
+	else if (converter == 'u')
+		flag = ft_putnbr_base_prnt_address(va_arg(*ap, unsigned int), 
+				count_chars, "0123456789");
+	else if (converter == 'x')
+		flag = ft_putnbr_base_prnt_address(va_arg(*ap, unsigned int), 
+				count_chars, "0123456789abcdef");
+	else if (converter == 'X')
+		flag = ft_putnbr_base_prnt_address(va_arg(*ap, unsigned int), 
+				count_chars, "0123456789ABCDEF");
+	else
+		flag = 0;
+	if (flag == -1)
+		(*count_chars) = -1;
+}
+
 int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	int		count_chars;
-	int		i;
-	int		fd;
+	size_t	i;
 
-	fd = 1;
 	if (format == NULL)
 		return ('\0');
 	va_start(ap, format);
@@ -30,52 +71,18 @@ int	ft_printf(const char *format, ...)
 	i = 0;
 	while (format[i])
 	{
-		if (format[i] == '%' && ft_is_converter(format[i + 1]))
+		if (format[i] == '%' && ft_is_converter(format[i + 1]) == 1)
 		{
-			count_chars += ft_convert(format[i + 1], &ap, fd);
+			ft_convert(format[i + 1], &ap, &count_chars);
+			if (count_chars == -1)
+				return (count_chars);
 			i += 2;
 		}
-		else
-			count_chars += ft_putchar_fd_printf(format[i++], fd);
+		if (format[i] == '%' && format[i + 1] == '%')
+			i ++;
+		if (!(format[i] == '\0'))
+			ft_putchar_prnt(format[i++], &count_chars);
 	}
 	va_end(ap);
-	return (count_chars);
-}
-
-static int	ft_is_converter(char c)
-{
-	int		i;
-	char	*str;
-
-	str = "cspdiuxX%";
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (1);
-		i ++;
-	}
-	return (0);
-}
-
-static int	ft_convert(char converter, va_list *ap, int fd)
-{
-	int	count_chars;
-
-	count_chars = 0;
-	if (converter == 'c')
-		count_chars += ft_putchar_fd_printf(va_arg(*ap, int), fd);
-	else if (converter == 's')
-		count_chars += ft_putstr_fd_printf(va_arg(*ap, char *), fd);
-	else if (converter == 'd' || converter == 'i')
-		count_chars += ft_putnbr_fd_printf(va_arg(*ap, int), fd);
-	else if (converter == 'u' || converter == 'x' || converter == 'X')
-		count_chars += ft_putnbr_base_unsigned_fd
-			(va_arg(*ap, unsigned int), converter, fd);
-	else if (converter == 'p')
-		count_chars += ft_putnbr_base_unsigned_fd
-			((uintptr_t)va_arg(*ap, void *), converter, fd);
-	else if (converter == '%')
-		count_chars += ft_putchar_fd_printf('%', fd);
 	return (count_chars);
 }
