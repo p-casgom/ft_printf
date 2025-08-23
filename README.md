@@ -21,7 +21,7 @@ Key things learned from this project:
 - Learn about printf's features/capabilities and the logic behind it.
 - Makefiles (i.e., adding libft into the ft_printf Makefile).
 
-This is a well functioning **ft_printf**, albeit slightly over-complicated. This is mostly due to my initial concern for properly handling error messages, especially those from the write function, which turned out to be more complicated than I had anticipated (or at least it seemed that way when I was coding it). It was nevertheless a good exercise to start dealing with more complex code, and improve skills related to handling return values and errors. It was also the first 42 project that involved variadic functions. The ft_dprintf folder contains somewhat neater source code emulating dprintf, which outputs to a file descriptor.
+This is a well functioning **ft_printf**, albeit slightly over-complicated. This is mostly due to my initial concern for properly handling error messages, especially those from the write function, which turned out to be more complicated than I had anticipated (or at least it seemed that way when I was coding it). It was nevertheless a good exercise to start dealing with more complex code, and improve skills related to handling return values and errors. It was also the first 42 project that involved variadic functions. The ft_dprintf folder contains somewhat neater source code emulating dprintf (also available in the libft repository), which outputs to a file descriptor.
 
 ### Testing:
 
